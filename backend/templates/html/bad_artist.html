@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #9333ea 0%, #dc2626 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f9f9f9;
+            padding: 30px;
+            border: 1px solid #ddd;
+        }
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Re: {{event_name}} Performance</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear <strong>{{artist_name}}</strong>,</p>
+        
+        <p>Thank you for your interest in performing at <strong>{{event_name}}</strong>.</p>
+        
+        <p>After careful consideration of all applications, we regret to inform you that we will not be able to include you in the lineup for this particular event. We received an overwhelming number of talented applications and had to make some difficult decisions based on our event's specific requirements and theme.</p>
+        
+        <p>We genuinely appreciate your interest and encourage you to stay connected with us for future opportunities. Your talent is valued, and we hope to find a suitable collaboration in the future.</p>
+        
+        <p>Wishing you all the best in your artistic journey!</p>
+        
+        <p>Warm regards,<br>
+        <strong>Event Management Team</strong></p>
+    </div>
+    
+    <div class="footer">
+        Please do not reply to this automated email.
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f9f9f9;
+            padding: 30px;
+            border: 1px solid #ddd;
+        }
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Re: Venue Inquiry for {{event_name}}</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear <strong>{{venue_owner}}</strong>,</p>
+        
+        <p>Thank you for your proposal and for taking the time to show us <strong>{{venue_name}}</strong>.</p>
+        
+        <p>After evaluating all available options for <strong>{{event_name}}</strong>, we have decided to proceed with an alternative venue that better aligns with our specific requirements for this particular event, including capacity, technical specifications, and budget considerations.</p>
+        
+        <p>We appreciate your professionalism and time throughout this process. Your venue has many excellent qualities, and we hope to explore opportunities for collaboration in future events.</p>
+        
+        <p>We will keep your contact information on file and reach out when we have an event that would be a better fit for {{venue_name}}.</p>
+        
+        <p>Thank you for your understanding.</p>
+        
+        <p>Best regards,<br>
+        <strong>Event Management Team</strong></p>
+    </div>
+    
+    <div class="footer">
+        Please do not reply to this automated email.
+    </div>
+</body>
+</html>
