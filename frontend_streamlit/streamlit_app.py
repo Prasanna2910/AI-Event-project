@@ -11,6 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'components'))
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
 
 from utils.api_client import APIClient
+from components._compat import safe_image, safe_button
 
 # Configure Streamlit page
 st.set_page_config(
@@ -86,6 +87,16 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+    .main-header {
+        color: #2563eb !important;
+        -webkit-text-fill-color: #2563eb !important;
+        background: none !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 
 # Initialize API client
 api_client = APIClient()
@@ -99,7 +110,7 @@ if 'uploaded_image' not in st.session_state:
     st.session_state.uploaded_image = None
 
 # Header
-st.markdown('<h1 class="main-header">🎭 Event Poster Data Extractor</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header ">AI-Powered Outreach Automation Assistant</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">Extract event details, scrape emails, and send automated outreach</p>', unsafe_allow_html=True)
 
 # Sidebar
@@ -130,7 +141,7 @@ with st.sidebar:
     st.header("⚙️ Configuration")
     
     # Backend connection test
-    if st.button("🔌 Test Backend Connection", use_container_width=True):
+    if safe_button("🔌 Test Backend Connection", use_container_width=True):
         with st.spinner("Testing connection..."):
             if api_client.test_connection():
                 st.success("✅ Backend connected!")
@@ -158,7 +169,7 @@ if uploaded_file is not None:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Poster", use_container_width=True)
+        safe_image(image, caption="Uploaded Poster", use_container_width=True)
     
     # Convert image to base64
     buffered = io.BytesIO()
@@ -168,10 +179,10 @@ if uploaded_file is not None:
     # Extract button
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🔍 Extract Details with OCR + GPT", type="primary", use_container_width=True):
+        if safe_button("🔍 Extract Details with OCR + GPT", type="primary", use_container_width=True):
             with st.spinner("🔄 Extracting and categorizing data..."):
                 result = api_client.extract_data(img_str)
-                
+
                 if result['success']:
                     st.session_state.extracted_data = result['data']
                     st.success("✅ Data extracted and saved to Google Sheets!")
@@ -224,7 +235,7 @@ if st.session_state.extracted_data:
         )
     
     with col2:
-        generate_btn = st.button("📝 Generate Email", use_container_width=True)
+        generate_btn = safe_button("📝 Generate Email", use_container_width=True)
     
     if generate_btn:
         with st.spinner("🔄 Generating email preview..."):
@@ -261,7 +272,7 @@ if st.session_state.extracted_data:
         # Send email button
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            if st.button("📨 Send Email Now", type="primary", use_container_width=True):
+            if safe_button("📨 Send Email Now", type="primary", use_container_width=True):
                 with st.spinner("📤 Sending email..."):
                     result = api_client.send_email(
                         email['to'],

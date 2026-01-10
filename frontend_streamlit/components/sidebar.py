@@ -3,6 +3,7 @@ Sidebar component
 """
 
 import streamlit as st
+from ._compat import safe_button
 
 def render_sidebar(api_client):
     """
@@ -39,7 +40,7 @@ def render_sidebar(api_client):
         st.header("⚙️ Configuration")
         
         # Backend connection test
-        if st.button("🔌 Test Backend Connection", use_container_width=True):
+        if safe_button("🔌 Test Backend Connection", use_container_width=True):
             with st.spinner("Testing connection..."):
                 if api_client.test_connection():
                     st.success("✅ Backend connected!")

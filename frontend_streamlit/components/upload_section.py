@@ -5,6 +5,7 @@ Upload section component
 import streamlit as st
 from PIL import Image
 import io
+from ._compat import safe_image
 
 def render_upload_section():
     """Render the image upload section"""
@@ -22,7 +23,7 @@ def render_upload_section():
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             image = Image.open(uploaded_file)
-            st.image(image, caption="Uploaded Poster", use_container_width=True)
+            safe_image(image, caption="Uploaded Poster", use_container_width=True)
         
         return uploaded_file, image
     
