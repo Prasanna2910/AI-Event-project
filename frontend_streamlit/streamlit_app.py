@@ -213,7 +213,7 @@ if st.session_state.extracted_data:
     st.text_input("📍 Location", value=data.get('location', ''), disabled=True, key="location")
     
     st.markdown('<div class="success-box">✅ Data automatically saved to Google Sheets</div>', unsafe_allow_html=True)
-    
+    st.markdown("<style> .success-box { color: #000000; } </style>", unsafe_allow_html=True)
     # Step 3: Select Email Template
     st.markdown('<div class="step-header">✉️ Step 3: Select Email Template</div>', unsafe_allow_html=True)
     

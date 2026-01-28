@@ -24,13 +24,20 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-
-# Configuration
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-genai.configure(api_key=GEMINI_API_KEY)
 
-# Initialize Gemini model
-model = genai.GenerativeModel("gemini-2.5-flash")
+# Initialize model lazily (only when needed)
+model = None
+
+def get_gemini_model():
+    """Get or initialize Gemini model"""
+    global model
+    if model is None:
+        if not GEMINI_API_KEY or len(GEMINI_API_KEY) < 20:
+            raise ValueError("GEMINI_API_KEY not configured. Please set your real API key in .env file")
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel("gemini-2.5-flash")
+    return model
 
 # Google Sheets Configuration
 SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -165,6 +172,8 @@ def extract_text_from_image(image_data):
 def categorize_with_gemini(ocr_text):
     """Use Google Gemini to categorize extracted text into structured data"""
     try:
+        model = get_gemini_model()
+            
         prompt = f"""
 Extract and categorize the following event poster text into JSON format.
 
@@ -222,7 +231,7 @@ Rules:
         }
     except Exception as e:
         print(f"Error in Gemini categorization: {e}")
-        return None
+        raise
 
 
 def scrape_email_from_social(name, platform='instagram'):
@@ -272,9 +281,9 @@ def send_email(to_email, subject, body):
         
         msg.attach(MIMEText(body, 'plain'))
         
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)  # Connect to SMTP server
+        server.starttls() #encrypting the connection
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD) 
         server.send_message(msg)
         server.quit()
         
